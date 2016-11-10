@@ -13,6 +13,21 @@
   stroke-width: 1px;
 }
 
+#ib-d3-graph-div {
+  height: "500px";
+  width: "960px";
+}
+  
+#testSvgId {
+  height: "500px";
+  width: "960px";
+}
+  
+#backgroundId {
+  height: "500px";
+  width: "960px";
+}
+
 text {
   font: bold 12px monospace;
 }
@@ -99,6 +114,7 @@ class D3ForceGraph {
   initBackground(t, svg) {
     let result = svg
       .append("rect")
+      .attr("id", "backgroundId")
       .attr("fill", "#F2F7F0")
       .attr("class", "view")
       .attr("x", 0.5)
@@ -372,7 +388,7 @@ setTimeout(() => {
     count ++;
     if (count % 100 === 0) {
       console.log(`count: ${count}`)
-      if (count % 2000 === 0) {
+      if (count % 400 === 0) {
         clearInterval(interval);
       }
     }
