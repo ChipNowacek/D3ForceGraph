@@ -19,7 +19,9 @@ text {
 
 </style>
 
-<svg id="testSvgId" width="960" height="500"></svg>
+<div id="ib-d3-graph-div">
+</div>
+<!-- <svg id="testSvgId" width="960" height="500"></svg> -->
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script>
 
@@ -335,7 +337,7 @@ class D3ForceGraph {
   }
 }
 
-
+let graphDiv = document.querySelector("#ib-d3-graph-div");
 let graph = new D3ForceGraph(graphDiv, "testSvgId");
 graph.init();
 
