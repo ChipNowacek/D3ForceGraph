@@ -4,7 +4,7 @@
 
 .links line {
   stroke: #76963e;
-  stroke-width: 2.0px;
+  stroke-width: 1.0px;
   stroke-opacity: 1.5;
 }
 
@@ -106,9 +106,6 @@ class D3ForceGraph {
     function getForceLinkDistance(d) { return 55; }
     function getForceStrength(d) { return 0.8; }
     function getForceChargeStrength(d) { return -25; }
-
-
-
   }
 
   initBackground(t, svg) {
@@ -131,7 +128,6 @@ class D3ForceGraph {
 
     let result = d3.forceSimulation()
       .velocityDecay(0.55)
-      // .alphaDecay(0.1)
       .force("link", d3.forceLink()
                        .distance(100)
                        .id(d => d.id))
@@ -151,30 +147,20 @@ class D3ForceGraph {
 
     return r;
   }
-  getColor(d) { return "lightgreen"; }
+  getColor(d) { return "lightblue"; }
 
   handleDragStarted(d, simulation) {
     if (!d3.event.active) simulation.alphaTarget(0.3).restart();
 
     d.fx = d.x;
     d.fy = d.y;
-
-    // t.x0 = d3.event.x;
-    // t.y0 = d3.event.y;
-    console.log(`drag started d.fx: ${d.fx}`)
   }
   handleDragged(d) {
-    // console.log(`dragged d.fx: ${d.fx}`)
-
     d.fx = d3.event.x;
     d.fy = d3.event.y;
   }
   handleDragEnded(d, simulation) {
-    console.log("handleDragEnded")
     if (!d3.event.active) simulation.alphaTarget(0);
-
-    d.fx = d3.event.x;
-    d.fy = d3.event.y;
 
     d.fx = undefined;
     d.fy = undefined;
@@ -195,7 +181,6 @@ class D3ForceGraph {
     let nodes = t.graphData.nodes;
     let links = t.graphData.links;
 
-    // t.initDrag();
     let drag =
       d3.drag()
         .on("start", d => t.handleDragStarted(d, simulation))
@@ -231,10 +216,7 @@ class D3ForceGraph {
         .classed('node', true)
         .attr("cursor", "pointer")
         .attr("r", d => t.getRadius(d))
-        .attr("fill", d => t.getColor(d))
-        .call((d) => {
-          // console.log(`graphNodesEnter.append. d: ${JSON.stringify(d)}`);
-        });
+        .attr("fill", d => t.getColor(d));
 
     let graphNodeLabels =
       graphNodesEnter
@@ -275,9 +257,6 @@ class D3ForceGraph {
       .links(links);
 
     function handleTicked() {
-      // let t = this;
-      // console.log('ticked')
-
       graphLinksData
         .attr("x1", d => d.source.x)
         .attr("y1", d => d.source.y)
@@ -287,7 +266,6 @@ class D3ForceGraph {
       // Translate the groups
       graphNodesData
           .attr("transform", d => {
-            // console.log(`d.x: ${d.x}`)
             return 'translate(' + [d.x, d.y] + ')';
           });
     }
@@ -313,7 +291,7 @@ class D3ForceGraph {
     console.log(`dToRemove: ${JSON.stringify(dToRemove)}`)
 
     let t = this;
-    // debugger;
+
     let currentNodes = t.graphData.nodes;
     let currentLinks = t.graphData.links;
     let nIndex = currentNodes.indexOf(dToRemove);
@@ -330,7 +308,6 @@ class D3ForceGraph {
     })
 
     t.update(t, t.simulation, t.graphNodesGroup, t.graphLinksGroup)
-    // update();
     t.simulation.restart();
     t.simulation.alpha(1);
   }
