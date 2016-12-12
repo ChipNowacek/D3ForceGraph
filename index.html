@@ -101,11 +101,6 @@ class D3ForceGraph {
 
     // update();
     t.update(t, simulation, graphNodesGroup, graphLinksGroup);
-
-    function getForceVelocityDecay(d) { return 0.25; }
-    function getForceLinkDistance(d) { return 55; }
-    function getForceStrength(d) { return 0.8; }
-    function getForceChargeStrength(d) { return -25; }
   }
 
   initBackground(t, svg) {
